@@ -1,14 +1,20 @@
-version: "3.8"
+version: '3.8'
+
 services:
-  signaling-server:
-    build: ./server
+  web:
+    build: ./server   # Path to the server directory (you might need to adjust this)
     ports:
       - "3000:3000"
-    restart: always
+    volumes:
+      - ./server:/app
+    environment:
+      - NODE_ENV=production
 
-  web:
-    build: ./public
+  frontend:
+    build: ./public    # Path to your public (frontend) directory
     ports:
-      - "8080:80"
-    restart: always
-
+      - "8080:8080"
+    volumes:
+      - ./public:/app
+    environment:
+      - NODE_ENV=production
